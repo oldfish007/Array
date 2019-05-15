@@ -3,7 +3,7 @@ package com.company.array;
 public class Array {
 
     private int[] data;
-    private int size;
+    private int size;//表示数组的元素 同时也指向第一个没有元素的位置
 
     public Array(int capacity){
         data = new int[capacity];
@@ -68,7 +68,6 @@ public class Array {
             }
         }
         res.append("]");
-
         return res.toString();
     }
 
@@ -85,4 +84,50 @@ public class Array {
         }
         data[index]=e;
     }
+    //是否包含某个元素
+    public boolean contains(int e){
+        for (int i=0;i<size;i++){
+            if(data[i]==e){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public int find(int e){
+        for (int i=0;i<size;i++){
+            if(data[i]==e){
+                return i;
+            }
+        }
+        return -1;
+    }
+    //从数组中删除index位置的元素，返回删除的元素
+    public int remove(int index){
+        if(index<0 ||index>size){
+            throw new IllegalArgumentException("remove Failed,Index is illegal");
+        }
+        int ret = data[index];//待删除的元素
+        for (int i=index+1;i< size;i++){
+                data[i-1] = data[i];
+        }
+        size--;
+        return ret;
+    }
+    public int removeFirst(){
+        return remove(0);
+    }
+    public int removeList(){
+        return remove(size-1);
+    }
+    //从数组中删除元素e
+    //对于现在的数组来说
+    //这个是只删除单个元素  如果有相同的数据 只删除一个
+    public void removeElement(int e){
+        int index = find(e);
+        if(index!=-1){
+            remove(index);
+        }
+    }
+
 }
